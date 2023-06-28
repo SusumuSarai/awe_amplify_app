@@ -1,0 +1,15 @@
+type RecipeItem @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  recipeItem: String!
+  quantity: Int!
+  recipeID: ID! @index(name: "byRecipe")
+}
+
+type Recipe @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  recipe: String!
+  memo: String
+  url: String
+  RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
+}
+ 
