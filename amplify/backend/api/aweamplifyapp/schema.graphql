@@ -43,7 +43,7 @@ type RecipeItem @model @auth(rules: [{allow: owner}]) {
 
 type Recipe @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  recipeTitle: String!
+  recipe: String!
   memo: String
   url: AWSURL
   serving: Float

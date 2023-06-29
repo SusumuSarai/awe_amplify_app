@@ -24,7 +24,7 @@ export default function RecipeUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    recipeTitle: "",
+    recipe: "",
     memo: "",
     url: "",
     serving: "",
@@ -32,9 +32,7 @@ export default function RecipeUpdateForm(props) {
     category2: "",
     like: "",
   };
-  const [recipeTitle, setRecipeTitle] = React.useState(
-    initialValues.recipeTitle
-  );
+  const [recipe, setRecipe] = React.useState(initialValues.recipe);
   const [memo, setMemo] = React.useState(initialValues.memo);
   const [url, setUrl] = React.useState(initialValues.url);
   const [serving, setServing] = React.useState(initialValues.serving);
@@ -46,7 +44,7 @@ export default function RecipeUpdateForm(props) {
     const cleanValues = recipeRecord
       ? { ...initialValues, ...recipeRecord }
       : initialValues;
-    setRecipeTitle(cleanValues.recipeTitle);
+    setRecipe(cleanValues.recipe);
     setMemo(cleanValues.memo);
     setUrl(cleanValues.url);
     setServing(cleanValues.serving);
@@ -67,7 +65,7 @@ export default function RecipeUpdateForm(props) {
   }, [idProp, recipeModelProp]);
   React.useEffect(resetStateValues, [recipeRecord]);
   const validations = {
-    recipeTitle: [{ type: "Required" }],
+    recipe: [{ type: "Required" }],
     memo: [],
     url: [{ type: "URL" }],
     serving: [],
@@ -101,7 +99,7 @@ export default function RecipeUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          recipeTitle,
+          recipe,
           memo,
           url,
           serving,
@@ -155,15 +153,15 @@ export default function RecipeUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Recipe title"
+        label="Recipe"
         isRequired={true}
         isReadOnly={false}
-        value={recipeTitle}
+        value={recipe}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeTitle: value,
+              recipe: value,
               memo,
               url,
               serving,
@@ -172,17 +170,17 @@ export default function RecipeUpdateForm(props) {
               like,
             };
             const result = onChange(modelFields);
-            value = result?.recipeTitle ?? value;
+            value = result?.recipe ?? value;
           }
-          if (errors.recipeTitle?.hasError) {
-            runValidationTasks("recipeTitle", value);
+          if (errors.recipe?.hasError) {
+            runValidationTasks("recipe", value);
           }
-          setRecipeTitle(value);
+          setRecipe(value);
         }}
-        onBlur={() => runValidationTasks("recipeTitle", recipeTitle)}
-        errorMessage={errors.recipeTitle?.errorMessage}
-        hasError={errors.recipeTitle?.hasError}
-        {...getOverrideProps(overrides, "recipeTitle")}
+        onBlur={() => runValidationTasks("recipe", recipe)}
+        errorMessage={errors.recipe?.errorMessage}
+        hasError={errors.recipe?.hasError}
+        {...getOverrideProps(overrides, "recipe")}
       ></TextField>
       <TextField
         label="Memo"
@@ -193,7 +191,7 @@ export default function RecipeUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeTitle,
+              recipe,
               memo: value,
               url,
               serving,
@@ -223,7 +221,7 @@ export default function RecipeUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeTitle,
+              recipe,
               memo,
               url: value,
               serving,
@@ -257,7 +255,7 @@ export default function RecipeUpdateForm(props) {
             : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              recipeTitle,
+              recipe,
               memo,
               url,
               serving: value,
@@ -287,7 +285,7 @@ export default function RecipeUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeTitle,
+              recipe,
               memo,
               url,
               serving,
@@ -317,7 +315,7 @@ export default function RecipeUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeTitle,
+              recipe,
               memo,
               url,
               serving,
@@ -351,7 +349,7 @@ export default function RecipeUpdateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              recipeTitle,
+              recipe,
               memo,
               url,
               serving,

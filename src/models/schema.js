@@ -489,8 +489,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "recipeTitle": {
-                    "name": "recipeTitle",
+                "recipe": {
+                    "name": "recipe",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -717,5 +717,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "01afe13ed9ee5a5413bd8224681dbf20"
+    "version": "d120d494c1637fa0e1a9b7bb034a1f1a"
 };

@@ -206,7 +206,7 @@ type EagerRecipe = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly recipeTitle: string;
+  readonly recipe: string;
   readonly memo?: string | null;
   readonly url?: string | null;
   readonly serving?: number | null;
@@ -225,7 +225,7 @@ type LazyRecipe = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly recipeTitle: string;
+  readonly recipe: string;
   readonly memo?: string | null;
   readonly url?: string | null;
   readonly serving?: number | null;
