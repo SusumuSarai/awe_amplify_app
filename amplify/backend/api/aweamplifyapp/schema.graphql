@@ -1,15 +1,55 @@
-type RecipeItem @model @auth(rules: [{allow: public}]) {
+type Shop @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  recipeItem: String!
-  quantity: Int!
-  recipeID: ID! @index(name: "byRecipe")
+  shop: String!
+  corner: [String]
 }
 
-type Recipe @model @auth(rules: [{allow: public}]) {
+type ShoppingList @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  recipe: String!
-  memo: String
-  url: String
-  RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
+  item: String!
+  unit: String
+  quantity: Float
+  corner: String
 }
- 
+
+type Menu @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  date: AWSDate
+  recipes: [Recipe] @manyToMany(relationName: "RecipeMenu")
+}
+
+type Item @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  item: String!
+  unit: String
+  corner: String
+}
+
+type ItemPreset @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  item: String!
+  unit: String
+  corner: String
+}
+
+type RecipeItem @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  recipeItem: String!
+  quantity: Float
+  corner: String
+  recipeID: ID @index(name: "byRecipe")
+  unit: String
+}
+
+type Recipe @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  recipeTitle: String!
+  memo: String
+  url: AWSURL
+  serving: Float
+  category1: String
+  category2: String
+  like: Int
+  Menus: [Menu] @manyToMany(relationName: "RecipeMenu")
+  RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
+} 

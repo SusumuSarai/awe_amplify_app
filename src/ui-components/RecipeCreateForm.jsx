@@ -23,24 +23,42 @@ export default function RecipeCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    recipe: "",
+    recipeTitle: "",
     memo: "",
     url: "",
+    serving: "",
+    category1: "",
+    category2: "",
+    like: "",
   };
-  const [recipe, setRecipe] = React.useState(initialValues.recipe);
+  const [recipeTitle, setRecipeTitle] = React.useState(
+    initialValues.recipeTitle
+  );
   const [memo, setMemo] = React.useState(initialValues.memo);
   const [url, setUrl] = React.useState(initialValues.url);
+  const [serving, setServing] = React.useState(initialValues.serving);
+  const [category1, setCategory1] = React.useState(initialValues.category1);
+  const [category2, setCategory2] = React.useState(initialValues.category2);
+  const [like, setLike] = React.useState(initialValues.like);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setRecipe(initialValues.recipe);
+    setRecipeTitle(initialValues.recipeTitle);
     setMemo(initialValues.memo);
     setUrl(initialValues.url);
+    setServing(initialValues.serving);
+    setCategory1(initialValues.category1);
+    setCategory2(initialValues.category2);
+    setLike(initialValues.like);
     setErrors({});
   };
   const validations = {
-    recipe: [{ type: "Required" }],
+    recipeTitle: [{ type: "Required" }],
     memo: [],
-    url: [],
+    url: [{ type: "URL" }],
+    serving: [],
+    category1: [],
+    category2: [],
+    like: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -68,9 +86,13 @@ export default function RecipeCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          recipe,
+          recipeTitle,
           memo,
           url,
+          serving,
+          category1,
+          category2,
+          like,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -117,30 +139,34 @@ export default function RecipeCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Recipe"
+        label="Recipe title"
         isRequired={true}
         isReadOnly={false}
-        value={recipe}
+        value={recipeTitle}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipe: value,
+              recipeTitle: value,
               memo,
               url,
+              serving,
+              category1,
+              category2,
+              like,
             };
             const result = onChange(modelFields);
-            value = result?.recipe ?? value;
+            value = result?.recipeTitle ?? value;
           }
-          if (errors.recipe?.hasError) {
-            runValidationTasks("recipe", value);
+          if (errors.recipeTitle?.hasError) {
+            runValidationTasks("recipeTitle", value);
           }
-          setRecipe(value);
+          setRecipeTitle(value);
         }}
-        onBlur={() => runValidationTasks("recipe", recipe)}
-        errorMessage={errors.recipe?.errorMessage}
-        hasError={errors.recipe?.hasError}
-        {...getOverrideProps(overrides, "recipe")}
+        onBlur={() => runValidationTasks("recipeTitle", recipeTitle)}
+        errorMessage={errors.recipeTitle?.errorMessage}
+        hasError={errors.recipeTitle?.hasError}
+        {...getOverrideProps(overrides, "recipeTitle")}
       ></TextField>
       <TextField
         label="Memo"
@@ -151,9 +177,13 @@ export default function RecipeCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipe,
+              recipeTitle,
               memo: value,
               url,
+              serving,
+              category1,
+              category2,
+              like,
             };
             const result = onChange(modelFields);
             value = result?.memo ?? value;
@@ -177,9 +207,13 @@ export default function RecipeCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipe,
+              recipeTitle,
               memo,
               url: value,
+              serving,
+              category1,
+              category2,
+              like,
             };
             const result = onChange(modelFields);
             value = result?.url ?? value;
@@ -193,6 +227,134 @@ export default function RecipeCreateForm(props) {
         errorMessage={errors.url?.errorMessage}
         hasError={errors.url?.hasError}
         {...getOverrideProps(overrides, "url")}
+      ></TextField>
+      <TextField
+        label="Serving"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={serving}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              recipeTitle,
+              memo,
+              url,
+              serving: value,
+              category1,
+              category2,
+              like,
+            };
+            const result = onChange(modelFields);
+            value = result?.serving ?? value;
+          }
+          if (errors.serving?.hasError) {
+            runValidationTasks("serving", value);
+          }
+          setServing(value);
+        }}
+        onBlur={() => runValidationTasks("serving", serving)}
+        errorMessage={errors.serving?.errorMessage}
+        hasError={errors.serving?.hasError}
+        {...getOverrideProps(overrides, "serving")}
+      ></TextField>
+      <TextField
+        label="Category1"
+        isRequired={false}
+        isReadOnly={false}
+        value={category1}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              recipeTitle,
+              memo,
+              url,
+              serving,
+              category1: value,
+              category2,
+              like,
+            };
+            const result = onChange(modelFields);
+            value = result?.category1 ?? value;
+          }
+          if (errors.category1?.hasError) {
+            runValidationTasks("category1", value);
+          }
+          setCategory1(value);
+        }}
+        onBlur={() => runValidationTasks("category1", category1)}
+        errorMessage={errors.category1?.errorMessage}
+        hasError={errors.category1?.hasError}
+        {...getOverrideProps(overrides, "category1")}
+      ></TextField>
+      <TextField
+        label="Category2"
+        isRequired={false}
+        isReadOnly={false}
+        value={category2}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              recipeTitle,
+              memo,
+              url,
+              serving,
+              category1,
+              category2: value,
+              like,
+            };
+            const result = onChange(modelFields);
+            value = result?.category2 ?? value;
+          }
+          if (errors.category2?.hasError) {
+            runValidationTasks("category2", value);
+          }
+          setCategory2(value);
+        }}
+        onBlur={() => runValidationTasks("category2", category2)}
+        errorMessage={errors.category2?.errorMessage}
+        hasError={errors.category2?.hasError}
+        {...getOverrideProps(overrides, "category2")}
+      ></TextField>
+      <TextField
+        label="Like"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={like}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              recipeTitle,
+              memo,
+              url,
+              serving,
+              category1,
+              category2,
+              like: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.like ?? value;
+          }
+          if (errors.like?.hasError) {
+            runValidationTasks("like", value);
+          }
+          setLike(value);
+        }}
+        onBlur={() => runValidationTasks("like", like)}
+        errorMessage={errors.like?.errorMessage}
+        hasError={errors.like?.hasError}
+        {...getOverrideProps(overrides, "like")}
       ></TextField>
       <Flex
         justifyContent="space-between"

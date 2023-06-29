@@ -3,14 +3,18 @@ import { Recipe } from "./models";
 // import { Recipe, RecipeItem } from "./models";
 
 export const createRecipeAPI = async (data) => {
-  // const { content } = data;
+  const { recipe, memo, url, RecipeItems } = data;
   try {
     await DataStore.save(
       new Recipe({
-        recipe: "BBQ4",
-        memo: "My friend's Best!",
-        url: "",
-        RecipeItems: ["beaf", "onion", "pumpkin"],
+        recipe,
+        memo,
+        url,
+        RecipeItems,
+        // recipe: "BBQ5",
+        // memo: "My friend's Best!",
+        // url: "",
+        // RecipeItems: ["beaf", "onion", "pumpkin"],
       })
     );
   } catch (error) {
