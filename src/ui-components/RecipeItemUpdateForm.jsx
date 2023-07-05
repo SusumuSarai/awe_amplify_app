@@ -24,12 +24,14 @@ export default function RecipeItemUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    recipeItem: "",
+    recipeItemName: "",
     quantity: "",
     corner: "",
     unit: "",
   };
-  const [recipeItem, setRecipeItem] = React.useState(initialValues.recipeItem);
+  const [recipeItemName, setRecipeItemName] = React.useState(
+    initialValues.recipeItemName
+  );
   const [quantity, setQuantity] = React.useState(initialValues.quantity);
   const [corner, setCorner] = React.useState(initialValues.corner);
   const [unit, setUnit] = React.useState(initialValues.unit);
@@ -38,7 +40,7 @@ export default function RecipeItemUpdateForm(props) {
     const cleanValues = recipeItemRecord
       ? { ...initialValues, ...recipeItemRecord }
       : initialValues;
-    setRecipeItem(cleanValues.recipeItem);
+    setRecipeItemName(cleanValues.recipeItemName);
     setQuantity(cleanValues.quantity);
     setCorner(cleanValues.corner);
     setUnit(cleanValues.unit);
@@ -57,7 +59,7 @@ export default function RecipeItemUpdateForm(props) {
   }, [idProp, recipeItemModelProp]);
   React.useEffect(resetStateValues, [recipeItemRecord]);
   const validations = {
-    recipeItem: [{ type: "Required" }],
+    recipeItemName: [{ type: "Required" }],
     quantity: [],
     corner: [],
     unit: [],
@@ -88,7 +90,7 @@ export default function RecipeItemUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          recipeItem,
+          recipeItemName,
           quantity,
           corner,
           unit,
@@ -139,31 +141,31 @@ export default function RecipeItemUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Recipe item"
+        label="Recipe item name"
         isRequired={true}
         isReadOnly={false}
-        value={recipeItem}
+        value={recipeItemName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeItem: value,
+              recipeItemName: value,
               quantity,
               corner,
               unit,
             };
             const result = onChange(modelFields);
-            value = result?.recipeItem ?? value;
+            value = result?.recipeItemName ?? value;
           }
-          if (errors.recipeItem?.hasError) {
-            runValidationTasks("recipeItem", value);
+          if (errors.recipeItemName?.hasError) {
+            runValidationTasks("recipeItemName", value);
           }
-          setRecipeItem(value);
+          setRecipeItemName(value);
         }}
-        onBlur={() => runValidationTasks("recipeItem", recipeItem)}
-        errorMessage={errors.recipeItem?.errorMessage}
-        hasError={errors.recipeItem?.hasError}
-        {...getOverrideProps(overrides, "recipeItem")}
+        onBlur={() => runValidationTasks("recipeItemName", recipeItemName)}
+        errorMessage={errors.recipeItemName?.errorMessage}
+        hasError={errors.recipeItemName?.hasError}
+        {...getOverrideProps(overrides, "recipeItemName")}
       ></TextField>
       <TextField
         label="Quantity"
@@ -178,7 +180,7 @@ export default function RecipeItemUpdateForm(props) {
             : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              recipeItem,
+              recipeItemName,
               quantity: value,
               corner,
               unit,
@@ -205,7 +207,7 @@ export default function RecipeItemUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeItem,
+              recipeItemName,
               quantity,
               corner: value,
               unit,
@@ -232,7 +234,7 @@ export default function RecipeItemUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              recipeItem,
+              recipeItemName,
               quantity,
               corner,
               unit: value,

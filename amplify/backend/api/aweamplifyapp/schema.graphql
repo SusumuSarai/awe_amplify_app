@@ -15,7 +15,8 @@ type ShoppingList @model @auth(rules: [{allow: owner}]) {
 type Menu @model @auth(rules: [{allow: owner}]) {
   id: ID!
   date: AWSDate
-  recipes: [Recipe] @manyToMany(relationName: "RecipeMenu")
+  recipeID: String
+  menuServing: String
 }
 
 type Item @model @auth(rules: [{allow: owner}]) {
@@ -34,7 +35,7 @@ type ItemPreset @model @auth(rules: [{allow: public}]) {
 
 type RecipeItem @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  recipeItem: String!
+  recipeItemName: String!
   quantity: Float
   corner: String
   recipeID: ID @index(name: "byRecipe")
@@ -43,13 +44,13 @@ type RecipeItem @model @auth(rules: [{allow: owner}]) {
 
 type Recipe @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  recipe: String!
+  recipeName: String!
   memo: String
   url: AWSURL
   serving: Float
   category1: String
   category2: String
   like: Int
-  Menus: [Menu] @manyToMany(relationName: "RecipeMenu")
   RecipeItems: [RecipeItem] @hasMany(indexName: "byRecipe", fields: ["id"])
-} 
+}
+ 

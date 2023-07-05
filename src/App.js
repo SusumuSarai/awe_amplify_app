@@ -11,6 +11,10 @@ import {
   createShopAPI,
   createShoppingListAPI,
   createRecipeAPI,
+  createMenuAPI,
+  fetchMenuAPI,
+  deleteMenuAPI,
+  deleteRecipeAPI,
 } from "./boltAPI";
 
 Amplify.configure(awsExports);
@@ -34,6 +38,24 @@ function App({ signOut, user }) {
     await createRecipeAPI(data);
   };
 
+  // Recipe 削除
+  const onClickDeleteRecipeAPI = async (data) => {
+    await deleteRecipeAPI(data);
+  };
+
+  // Menu 登録
+  const onClickCreateMenuAPI = async (data) => {
+    await createMenuAPI(data);
+  };
+  // Menu 削除
+  const onClickDeleteMenuAPI = async (data) => {
+    await deleteMenuAPI(data);
+  };
+  // Menu 取得
+  const onClickFetchMenuAPI = async (data) => {
+    await fetchMenuAPI(data);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -47,6 +69,12 @@ function App({ signOut, user }) {
         <button onClick={onClickCreateRecipeAPI}>
           click create Recipe API
         </button>
+        <button onClick={onClickDeleteRecipeAPI}>
+          click Delete Recipe API
+        </button>
+        <button onClick={onClickCreateMenuAPI}>click create Menu API</button>
+        <button onClick={onClickDeleteMenuAPI}>click Delete Menu API</button>
+        <button onClick={onClickFetchMenuAPI}>click Fetch Menu API</button>
 
         <h2>Hellow susumu!</h2>
         {user ? (

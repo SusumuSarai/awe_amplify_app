@@ -13,13 +13,13 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type RecipeItemCreateFormInputValues = {
-    recipeItem?: string;
+    recipeItemName?: string;
     quantity?: number;
     corner?: string;
     unit?: string;
 };
 export declare type RecipeItemCreateFormValidationValues = {
-    recipeItem?: ValidationFunction<string>;
+    recipeItemName?: ValidationFunction<string>;
     quantity?: ValidationFunction<number>;
     corner?: ValidationFunction<string>;
     unit?: ValidationFunction<string>;
@@ -27,7 +27,7 @@ export declare type RecipeItemCreateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type RecipeItemCreateFormOverridesProps = {
     RecipeItemCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    recipeItem?: PrimitiveOverrideProps<TextFieldProps>;
+    recipeItemName?: PrimitiveOverrideProps<TextFieldProps>;
     quantity?: PrimitiveOverrideProps<TextFieldProps>;
     corner?: PrimitiveOverrideProps<TextFieldProps>;
     unit?: PrimitiveOverrideProps<TextFieldProps>;
