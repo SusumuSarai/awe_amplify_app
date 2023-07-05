@@ -170,21 +170,19 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "recipes": {
-                    "name": "recipes",
-                    "isArray": true,
-                    "type": {
-                        "model": "RecipeMenu"
-                    },
+                "recipeID": {
+                    "name": "recipeID",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "menu"
-                        ]
-                    }
+                    "attributes": []
+                },
+                "menuServing": {
+                    "name": "menuServing",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -390,8 +388,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "recipeItem": {
-                    "name": "recipeItem",
+                "recipeItemName": {
+                    "name": "recipeItemName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -489,8 +487,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "recipe": {
-                    "name": "recipe",
+                "recipeName": {
+                    "name": "recipeName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -537,22 +535,6 @@ export const schema = {
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
-                },
-                "Menus": {
-                    "name": "Menus",
-                    "isArray": true,
-                    "type": {
-                        "model": "RecipeMenu"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "recipe"
-                        ]
-                    }
                 },
                 "RecipeItems": {
                     "name": "RecipeItems",
@@ -614,108 +596,10 @@ export const schema = {
                     }
                 }
             ]
-        },
-        "RecipeMenu": {
-            "name": "RecipeMenu",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "menuId": {
-                    "name": "menuId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "recipeId": {
-                    "name": "recipeId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "menu": {
-                    "name": "menu",
-                    "isArray": false,
-                    "type": {
-                        "model": "Menu"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "menuId"
-                        ]
-                    }
-                },
-                "recipe": {
-                    "name": "recipe",
-                    "isArray": false,
-                    "type": {
-                        "model": "Recipe"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "recipeId"
-                        ]
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "RecipeMenus",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byMenu",
-                        "fields": [
-                            "menuId"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byRecipe",
-                        "fields": [
-                            "recipeId"
-                        ]
-                    }
-                }
-            ]
         }
     },
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "d120d494c1637fa0e1a9b7bb034a1f1a"
+    "version": "997d7dd206f9da9efee9d5fbc354d919"
 };

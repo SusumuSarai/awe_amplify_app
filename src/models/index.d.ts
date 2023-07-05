@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
@@ -77,7 +77,8 @@ type EagerMenu = {
   };
   readonly id: string;
   readonly date?: string | null;
-  readonly recipes?: (RecipeMenu | null)[] | null;
+  readonly recipeID?: string | null;
+  readonly menuServing?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -89,7 +90,8 @@ type LazyMenu = {
   };
   readonly id: string;
   readonly date?: string | null;
-  readonly recipes: AsyncCollection<RecipeMenu>;
+  readonly recipeID?: string | null;
+  readonly menuServing?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -170,7 +172,7 @@ type EagerRecipeItem = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly recipeItem: string;
+  readonly recipeItemName: string;
   readonly quantity?: number | null;
   readonly corner?: string | null;
   readonly recipeID?: string | null;
@@ -185,7 +187,7 @@ type LazyRecipeItem = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly recipeItem: string;
+  readonly recipeItemName: string;
   readonly quantity?: number | null;
   readonly corner?: string | null;
   readonly recipeID?: string | null;
@@ -206,14 +208,13 @@ type EagerRecipe = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly recipe: string;
+  readonly recipeName: string;
   readonly memo?: string | null;
   readonly url?: string | null;
   readonly serving?: number | null;
   readonly category1?: string | null;
   readonly category2?: string | null;
   readonly like?: number | null;
-  readonly Menus?: (RecipeMenu | null)[] | null;
   readonly RecipeItems?: (RecipeItem | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -225,14 +226,13 @@ type LazyRecipe = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly recipe: string;
+  readonly recipeName: string;
   readonly memo?: string | null;
   readonly url?: string | null;
   readonly serving?: number | null;
   readonly category1?: string | null;
   readonly category2?: string | null;
   readonly like?: number | null;
-  readonly Menus: AsyncCollection<RecipeMenu>;
   readonly RecipeItems: AsyncCollection<RecipeItem>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -242,38 +242,4 @@ export declare type Recipe = LazyLoading extends LazyLoadingDisabled ? EagerReci
 
 export declare const Recipe: (new (init: ModelInit<Recipe>) => Recipe) & {
   copyOf(source: Recipe, mutator: (draft: MutableModel<Recipe>) => MutableModel<Recipe> | void): Recipe;
-}
-
-type EagerRecipeMenu = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<RecipeMenu, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly menuId?: string | null;
-  readonly recipeId?: string | null;
-  readonly menu: Menu;
-  readonly recipe: Recipe;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyRecipeMenu = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<RecipeMenu, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly menuId?: string | null;
-  readonly recipeId?: string | null;
-  readonly menu: AsyncItem<Menu>;
-  readonly recipe: AsyncItem<Recipe>;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type RecipeMenu = LazyLoading extends LazyLoadingDisabled ? EagerRecipeMenu : LazyRecipeMenu
-
-export declare const RecipeMenu: (new (init: ModelInit<RecipeMenu>) => RecipeMenu) & {
-  copyOf(source: RecipeMenu, mutator: (draft: MutableModel<RecipeMenu>) => MutableModel<RecipeMenu> | void): RecipeMenu;
 }

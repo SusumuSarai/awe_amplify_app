@@ -25,14 +25,22 @@ export default function MenuUpdateForm(props) {
   } = props;
   const initialValues = {
     date: "",
+    recipeID: "",
+    menuServing: "",
   };
   const [date, setDate] = React.useState(initialValues.date);
+  const [recipeID, setRecipeID] = React.useState(initialValues.recipeID);
+  const [menuServing, setMenuServing] = React.useState(
+    initialValues.menuServing
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = menuRecord
       ? { ...initialValues, ...menuRecord }
       : initialValues;
     setDate(cleanValues.date);
+    setRecipeID(cleanValues.recipeID);
+    setMenuServing(cleanValues.menuServing);
     setErrors({});
   };
   const [menuRecord, setMenuRecord] = React.useState(menuModelProp);
@@ -48,6 +56,8 @@ export default function MenuUpdateForm(props) {
   React.useEffect(resetStateValues, [menuRecord]);
   const validations = {
     date: [],
+    recipeID: [],
+    menuServing: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -76,6 +86,8 @@ export default function MenuUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           date,
+          recipeID,
+          menuServing,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -133,6 +145,8 @@ export default function MenuUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               date: value,
+              recipeID,
+              menuServing,
             };
             const result = onChange(modelFields);
             value = result?.date ?? value;
@@ -146,6 +160,58 @@ export default function MenuUpdateForm(props) {
         errorMessage={errors.date?.errorMessage}
         hasError={errors.date?.hasError}
         {...getOverrideProps(overrides, "date")}
+      ></TextField>
+      <TextField
+        label="Recipe id"
+        isRequired={false}
+        isReadOnly={false}
+        value={recipeID}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              date,
+              recipeID: value,
+              menuServing,
+            };
+            const result = onChange(modelFields);
+            value = result?.recipeID ?? value;
+          }
+          if (errors.recipeID?.hasError) {
+            runValidationTasks("recipeID", value);
+          }
+          setRecipeID(value);
+        }}
+        onBlur={() => runValidationTasks("recipeID", recipeID)}
+        errorMessage={errors.recipeID?.errorMessage}
+        hasError={errors.recipeID?.hasError}
+        {...getOverrideProps(overrides, "recipeID")}
+      ></TextField>
+      <TextField
+        label="Menu serving"
+        isRequired={false}
+        isReadOnly={false}
+        value={menuServing}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              date,
+              recipeID,
+              menuServing: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.menuServing ?? value;
+          }
+          if (errors.menuServing?.hasError) {
+            runValidationTasks("menuServing", value);
+          }
+          setMenuServing(value);
+        }}
+        onBlur={() => runValidationTasks("menuServing", menuServing)}
+        errorMessage={errors.menuServing?.errorMessage}
+        hasError={errors.menuServing?.hasError}
+        {...getOverrideProps(overrides, "menuServing")}
       ></TextField>
       <Flex
         justifyContent="space-between"
